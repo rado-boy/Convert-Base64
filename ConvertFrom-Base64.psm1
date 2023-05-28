@@ -9,7 +9,7 @@ function ConvertFrom-Base64 {
             )
         ]
         [ValidateNotNullOrEmpty()]
-        [object]$In,
+        [string]$In,
 
         [Parameter(
             Mandatory=$False,
