@@ -19,7 +19,7 @@ function ConvertFrom-Base64 {
         [switch]$Browse
     )
 
-    $Str = $In.Trim() # ensure we get a clean string without whitespaces (probably unnecessary)
+    $Str = $In.Trim() # added this to ensure there isn't a newline at end of output if you pipe from Out-String
     Write-Verbose "ConvertFrom-Base64:`nThis is the string that's being converted (between dash lines):`n-----------`n$Str`n-----------"
     $DecodedString = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($Str)) # do the conversion
     
