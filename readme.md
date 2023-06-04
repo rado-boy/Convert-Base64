@@ -7,7 +7,7 @@ Give it a UTF8-encoded string and it will output the base64-encoded version.  Ac
 *Example:*
 
 ```PowerShell
-PS> Import-Module .\ConvertTo-Base64.psm1`
+PS> Import-Module .\ConvertTo-Base64.psm1
 PS> ConvertTo-Base64 "https://github.com/rado-boy/Convert-Base64"
 aHR0cHM6Ly9naXRodWIuY29tL3JhZG8tYm95L0NvbnZlcnQtQmFzZTY0
 ```

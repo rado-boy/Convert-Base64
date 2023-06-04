@@ -1,4 +1,42 @@
 function ConvertFrom-Base64 {
+
+<#
+.SYNOPSIS
+    Converts a Base64-encoded string to UTF-8
+
+.DESCRIPTION
+    This funtion takes string input and attempts to convert it from Base64 to UTF-8
+    then spit out the converted string. If a string is not Base64, you'll get an error.
+    Additionally, a switch parameter is included to grab a URL & open it 
+    which is described below
+
+.PARAMETER In
+    The Base64 string to convert
+
+.PARAMETER Browse
+    Switch paramter - if you expect the decoded string to be a URL, you can use this
+    to quickly open the link in your default web browser.  Before opening, the decoded
+    string will first be validated to ensure it is a correctly-formatted URL.
+    My regex logic is simple, so it really only checks to ensure you have "http(s)",
+    the ":\\", and then something after it; so this script considers "https://test" to
+    be a valid link for example - good enough for me. Then, the user will be displayed
+    the validated URL string and a security lecture prompt where you have to choose yes
+    to browse to it.
+
+.EXAMPLE
+     PS> ConvertFrom-Base64 "aHR0cHM6Ly9naXRodWIuY29tL3JhZG8tYm95L0NvbnZlcnQtQmFzZTY0" -Browse
+    (note: this is the decoded string https://github.com/rado-boy/Convert-Base64)
+
+.INPUTS
+    String
+
+.OUTPUTS
+    String
+
+.NOTES
+    Author: https://github.com/rado-boy
+#>
+
     [CmdletBinding()]
     param (
         [Parameter(
@@ -23,8 +61,8 @@ function ConvertFrom-Base64 {
     Write-Verbose "ConvertFrom-Base64:`nThis is the string that's being converted (between dash lines):`n-----------`n$Str`n-----------"
     $DecodedString = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($Str)) # do the conversion
     
-    if ($Browse) { # if -Browse switch is specified, browse to decoded string if it is a valid url
-        if ($DecodedString -match "(http[s]?)(:\/\/)([^\s]+)") { # match using regex to ensure the output is at the very least in the format of 'http(s)://text'
+    if ($Browse) { # if -Browse switch is specified & output is a 'valid' URL, browse to it
+        if ($DecodedString -match "(http[s]?)(:\/\/)([^\s]+)") { # match using regex to ensure the output is in the minimum format of 'http(s)://text'
             
             # display link and ask user if they want to open it
             $msg = `
